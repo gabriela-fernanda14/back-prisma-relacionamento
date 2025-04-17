@@ -1,5 +1,6 @@
 import express from "express";
 import CollectionController from "../controllers/collectionController.js";
+import collectionController from "../controllers/collectionController.js";
 
 const collectionRouter = express.Router();
 
@@ -11,7 +12,7 @@ collectionRouter.get("/", CollectionController.getAllCollections);
 //personagensRouter.get("/:id", PersonagemController.getPersonagemById);
 
 // POST /personagens - Criar um novo Personagem
-//personagensRouter.post("/", PersonagemController.createPersonagem);
+collectionRouter.post("/", collectionController.createCollection);
 
 // PUT /personagens/:id - Atualizar um Personagem
 //personagensRouter.put("/:id", PersonagemController.updatePersonagem);

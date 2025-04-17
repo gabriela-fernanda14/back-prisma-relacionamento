@@ -31,58 +31,39 @@ class PersonagemController {
       }
     }
   
-    // POST /api/personagens
-    async createPersonagem(req, res) {
-      try {
-        // Validação básica
-        const {
-          title,
-          description,
-          episodes,
-          releaseYear,
-          studio,
-          genres,
-          rating,
-          imageUrl,
-        } = req.body;
-  
-        // Verifica se todos os campos do personagem foram fornecidos
-        if (
-          !title ||
-          !description ||
-          !episodes ||
-          !releaseYear ||
-          !studio ||
-          !genres ||
-          !rating ||
-          !imageUrl
-        ) {
-          return res
-            .status(400)
-            .json({ error: "Todos os campos são obrigatórios" });
+    async createCollection(req, res) {
+        try {
+            // Validação básica
+            const {
+                name,
+                description,
+                releaseYear
+            } = req.body;
+
+            // Verifica se todos os campos obrigatorios de coleção foram fornecidos
+            if (!name || !releaseYear) {
+                return res
+                    .status(400)
+                    .json({ error: "Os campos de nome e ano de lançamento são obrigatorios" });
+            }
+
+            // Criar a novo coleção
+            const newCollection = await collectionModel.create(
+                name,
+                description,
+                releaseYear
+            );
+
+            if (!newCollection) {
+                return res.status(400).json({ error: "Erro ao criar coleção" });
+            }
+
+            res.status(201).json(newCollection);
+            
+        } catch (error) {
+            console.error("Erro ao criar coleção:", error);
+            res.status(500).json({ error: "Erro ao criar coleção" });
         }
-  
-        // Criar o novo personagem
-        const newPersonagem = await PersonagemModel.create(
-          title,
-          description,
-          episodes,
-          releaseYear,
-          studio,
-          genres,
-          rating,
-          imageUrl
-        );
-  
-        if (!newPersonagem) {
-          return res.status(400).json({ error: "Erro ao criar personagem" });
-        }
-  
-        res.status(201).json(newPersonagem);
-      } catch (error) {
-        console.error("Erro ao criar personagem:", error);
-        res.status(500).json({ error: "Erro ao criar personagem" });
-      }
     }
   
     // PUT /api/personagens/:id
