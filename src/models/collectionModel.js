@@ -14,43 +14,35 @@ class CollectionModel {
     return colecoes;
   }
 
-  // Obter um personagem pelo ID
+  // Obter uma colecao pelo ID
   async findById(id) {
-    const personagem = await prisma.personagem.findUnique({
+    const colecao = await prisma.collection.findUnique({
       where: {
         id: Number(id),
       },
+      include: {
+        cards: true,
+      }
+      
     });
-
-    return personagem;
+    return colecao;
+    
   }
 
-  // Criar um novo personagem
-  async create(
-    title,
-    description,
-    episodes,
-    releaseYear,
-    studio,
-    genres,
-    rating,
-    imageUrl
-  ) {
-    const newPersonagem = await prisma.personagem.create({
+  // Criar uma nova coleção
+  async create(name, description, releaseYear) {
+    const novaColecao = await prisma.collection.create({
       data: {
-        title,
+        name,
         description,
-        episodes,
         releaseYear,
-        studio,
-        genres,
-        rating,
-        imageUrl,
       },
     });
 
-    return newPersonagem;
+    return novaColecao;
   }
+
+
 
   // Atualizar um personagem
   async update(
