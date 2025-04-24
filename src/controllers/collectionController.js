@@ -91,7 +91,7 @@ async updateCollection(req, res) {
       releaseYear,
     } = req.body;
 
-    // Atualizar o personagem
+    // Atualizar a coleção
     const updatedCollection = await CollectionModel.update(
       id,
       name,
