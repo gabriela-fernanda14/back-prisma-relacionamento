@@ -81,44 +81,34 @@ async create(name, description, releaseYear) {
 
 
 
-  // PUT /api/personagens/:id
-  async updatePersonagem(req, res) {
-    try {
-      const { id } = req.params;
-      const {
-        title,
-        description,
-        episodes,
-        releaseYear,
-        studio,
-        genres,
-        rating,
-        imageUrl,
-      } = req.body;
+// PUT /colecao/:id
+async updateCollection(req, res) {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      description,
+      releaseYear,
+    } = req.body;
 
-      // Atualizar o personagem
-      const updatedPersonagem = await PersonagemModel.update(
-        id,
-        title,
-        description,
-        episodes,
-        releaseYear,
-        studio,
-        genres,
-        rating,
-        imageUrl
-      );
+    // Atualizar o personagem
+    const updatedCollection = await CollectionModel.update(
+      id,
+      name,
+      description,
+      releaseYear,
+    );
 
-      if (!updatedPersonagem) {
-        return res.status(404).json({ error: "Personagem não encontrado" });
-      }
-
-      res.json(updatedPersonagem);
-    } catch (error) {
-      console.error("Erro ao atualizar personagem:", error);
-      res.status(500).json({ error: "Erro ao atualizar personagem" });
+    if (!updatedCollection) {
+      return res.status(404).json({ error: "Coleção não encontrada" });
     }
+
+    res.json(updatedCollection);
+  } catch (error) {
+    console.error("Erro ao atualizar coleção:", error);
+    res.status(500).json({ error: "Erro ao atualizar coleção" });
   }
+}
 
   // DELETE /api/personagens/:id
   async deletePersonagem(req, res) {
