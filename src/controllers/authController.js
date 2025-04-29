@@ -14,7 +14,7 @@ class AuthController {
     }
 
     // Registrar um novo usuário
-    async registerUser(req, res) {
+    async register(req, res) {
         try {
             const { name, email, password } = req.body;
 
