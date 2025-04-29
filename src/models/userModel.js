@@ -17,6 +17,21 @@ async findById(id) {
 
     return user;
   }
+
+  // obter um usuário pelo email
+    async findByEmail(email) {
+        const user = await prisma.user.findUnique({
+        where: {
+            email,
+        }
+        });
+    
+        return user;
+    }
+
+
+
+
 // Obter todos os usuários
   async findAll() {
     const users = await prisma.user.findMany();
